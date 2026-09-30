@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerInputReader : MonoBehaviour
+public sealed class PlayerInputReader : MonoBehaviour
 {
     private PlayerControls _controls;
 

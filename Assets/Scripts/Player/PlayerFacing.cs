@@ -3,7 +3,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PlayerInputReader))]
-public class PlayerFacing : MonoBehaviour
+public sealed class PlayerFacing : MonoBehaviour
 {
     [Header("References")]
     [SerializeField]
