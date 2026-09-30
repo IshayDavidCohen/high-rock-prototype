@@ -518,6 +518,7 @@ GameObject:
   - component: {fileID: 1012650135}
   - component: {fileID: 1012650136}
   - component: {fileID: 1012650137}
+  - component: {fileID: 1012650138}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -704,6 +705,20 @@ MonoBehaviour:
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &1012650138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b086d8dad8dd4f744936a832368439de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Defense
+  armor: 0
+  magicResistancePercent: 0
 --- !u!1 &1013885998
 GameObject:
   m_ObjectHideFlags: 0
@@ -942,6 +957,7 @@ GameObject:
   - component: {fileID: 1565452030}
   - component: {fileID: 1565452029}
   - component: {fileID: 1565452033}
+  - component: {fileID: 1565452034}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1057,6 +1073,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
+  healthRegenPerSecond: 5
+--- !u!114 &1565452034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b086d8dad8dd4f744936a832368439de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Defense
+  armor: 100
+  magicResistancePercent: 0
 --- !u!1 &1705803763
 GameObject:
   m_ObjectHideFlags: 0

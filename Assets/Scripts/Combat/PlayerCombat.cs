@@ -106,7 +106,7 @@ public sealed class PlayerCombat : MonoBehaviour
             if (facingDot < minimumDot)
                 continue;
 
-            health.TakeDamage(attackDamage);
+            health.TakeDamage(attackDamage, DamageType.Physical);
         }
     }
 
