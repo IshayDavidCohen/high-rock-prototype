@@ -8,6 +8,8 @@ public sealed class PlayerInputReader : MonoBehaviour
     public Vector2 PointerPosition => _controls.Player.PointerPosition.ReadValue<Vector2>();
     public bool IsLookAheadHold => _controls.Player.LookAhead.IsPressed();
 
+    public bool AttackPressedThisFrame => _controls.Player.Attack.WasPressedThisFrame();
+
     private void Awake()
     {
         _controls = new PlayerControls();

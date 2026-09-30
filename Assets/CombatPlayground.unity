@@ -517,6 +517,7 @@ GameObject:
   - component: {fileID: 1012650129}
   - component: {fileID: 1012650135}
   - component: {fileID: 1012650136}
+  - component: {fileID: 1012650137}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -684,6 +685,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerFacing
   gameplayCamera: {fileID: 745189559}
+--- !u!114 &1012650137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a137b804fd1ca64694e490cae282deb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerCombat
+  attackDamage: 25
+  attackRange: 2
+  attackAngle: 90
+  attackCooldown: 0.4
+  damageableLayers:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &1013885998
 GameObject:
   m_ObjectHideFlags: 0
@@ -921,7 +941,8 @@ GameObject:
   - component: {fileID: 1565452031}
   - component: {fileID: 1565452030}
   - component: {fileID: 1565452029}
-  m_Layer: 0
+  - component: {fileID: 1565452033}
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1023,6 +1044,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1565452033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c1e384284ef2f4b9e6c65c18b555ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
 --- !u!1 &1705803763
 GameObject:
   m_ObjectHideFlags: 0
