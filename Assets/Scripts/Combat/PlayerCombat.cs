@@ -25,6 +25,9 @@ public sealed class PlayerCombat : MonoBehaviour
     [SerializeField]
     private LayerMask damageableLayers;
 
+    [SerializeField]
+    private LayerMask attackOcclusionLayers;
+
     private readonly Collider[] _hitBuffer = new Collider[HitBufferSize];
     private readonly HashSet<Health> _damagedThisAttack = new HashSet<Health>();
 
@@ -79,7 +82,7 @@ public sealed class PlayerCombat : MonoBehaviour
 
             Health health = hit.GetComponentInParent<Health>();
 
-            if (health == null || health.IsDead || !_damagedThisAttack.Add(health))
+            if (health == null || health.IsDead)
                 continue;
 
             Vector3 targetPosition = hit.ClosestPoint(transform.position);
@@ -101,6 +104,27 @@ public sealed class PlayerCombat : MonoBehaviour
             float facingDot = Vector3.Dot(transform.forward,  directionToTarget);
 
             if (facingDot < minimumDot)
+                continue;
+
+            Vector3 attackOrigin = transform.position + Vector3.up * 0.7f;
+            Vector3 targetPoint = hit.bounds.center;
+            Vector3 toTarget = targetPoint - attackOrigin;
+
+            if (toTarget.sqrMagnitude > 0.0001f)
+            {
+                bool blocked = Physics.Raycast(
+                    attackOrigin,
+                    toTarget.normalized,
+                    toTarget.magnitude,
+                    attackOcclusionLayers,
+                    QueryTriggerInteraction.Ignore
+                );
+
+                if (blocked)
+                    continue;
+            }
+
+            if (!_damagedThisAttack.Add(health))
                 continue;
 
             health.TakeDamage(attackDamage, DamageType.Physical, gameObject);
