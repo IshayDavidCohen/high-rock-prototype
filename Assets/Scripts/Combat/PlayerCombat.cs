@@ -98,15 +98,12 @@ public sealed class PlayerCombat : MonoBehaviour
 
             directionToTarget.Normalize();
 
-            float facingDot = Vector3.Dot(
-                transform.forward,
-                directionToTarget
-            );
+            float facingDot = Vector3.Dot(transform.forward,  directionToTarget);
 
             if (facingDot < minimumDot)
                 continue;
 
-            health.TakeDamage(attackDamage, DamageType.Physical);
+            health.TakeDamage(attackDamage, DamageType.Physical, gameObject);
         }
     }
 

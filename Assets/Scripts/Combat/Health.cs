@@ -23,6 +23,8 @@ public sealed class Health : MonoBehaviour
     public event Action<float, float> HealthChanged;
     public event Action Died;
 
+    public event Action<GameObject, float, DamageType> Damaged;
+
     private Defense _defense;
     
     void Awake()
@@ -37,7 +39,11 @@ public sealed class Health : MonoBehaviour
         RegenerateHealth();
     }
 
-    public void TakeDamage(float amount, DamageType damageType)
+    public void TakeDamage(
+        float amount,
+        DamageType damageType,
+        GameObject source = null
+        )
     {
         if (amount <= 0f || IsDead)
             return;
@@ -47,7 +53,7 @@ public sealed class Health : MonoBehaviour
             return;
 
         CurrentHealth = Mathf.Max(CurrentHealth - resolvedDamage, 0f);
-
+        Damaged?.Invoke(source, resolvedDamage, damageType);
         HealthChanged?.Invoke(CurrentHealth, maxHealth);
 
         Debug.Log(
