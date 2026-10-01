@@ -76,13 +76,11 @@ public sealed class EnemyBrain : MonoBehaviour
 
     private void OnEnable()
     {
-        _health.Died += HandleDeath;
         _health.Damaged += HandleDamaged;
     }
 
     private void OnDisable()
     {
-        _health.Died -= HandleDeath;
         _health.Damaged -= HandleDamaged;
     }
 
