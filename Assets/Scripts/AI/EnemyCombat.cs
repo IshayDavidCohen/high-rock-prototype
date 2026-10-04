@@ -2,6 +2,7 @@ using UnityEngine;
 
 
 [DisallowMultipleComponent]
+[RequireComponent(typeof(Stamina))]
 public sealed class EnemyCombat : MonoBehaviour
 {
 
@@ -18,6 +19,16 @@ public sealed class EnemyCombat : MonoBehaviour
     [SerializeField, Min(0f)]
     private float attackCooldown = 1f;
 
+    [SerializeField, Min(0f)]
+    private float attackStaminaCost = 15f;
+
+    [Header("Exhausted Attack")]
+    [SerializeField, Range(0f, 1f)]
+    private float exhaustedDamageMultiplier = 0.5f;
+
+    [SerializeField, Min(1f)]
+    private float exhaustedCooldownMultiplier = 1.4f;
+
     [SerializeField]
     private DamageType damageType = DamageType.Physical;
 
@@ -25,6 +36,13 @@ public sealed class EnemyCombat : MonoBehaviour
     private float _nextAttackTime;
 
     public float AttackRange => attackRange;
+
+    private Stamina _stamina;
+
+    private void Awake()
+    {
+        _stamina = GetComponent<Stamina>();
+    }
 
     public void SetTarget(Health targetHealth)
     {
@@ -60,9 +78,23 @@ public sealed class EnemyCombat : MonoBehaviour
         if (facingDot < minimumDot)
             return false;
 
-        _nextAttackTime = Time.time + attackCooldown;
+        bool hasEnoughStamina = _stamina.TrySpend(attackStaminaCost);
 
-        _targetHealth.TakeDamage(attackDamage, damageType, gameObject);
+        float resolvedDamage =
+            hasEnoughStamina
+                ? attackDamage
+                : attackDamage *
+                  exhaustedDamageMultiplier;
+
+        float resolvedCooldown =
+            hasEnoughStamina
+                ? attackCooldown
+                : attackCooldown *
+                  exhaustedCooldownMultiplier;
+
+        _nextAttackTime = Time.time + resolvedCooldown;
+
+        _targetHealth.TakeDamage(resolvedDamage, damageType, gameObject);
 
         return true;
     }

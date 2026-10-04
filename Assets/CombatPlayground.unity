@@ -119,6 +119,192 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &242796281 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7622602723375979905, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+  m_PrefabInstance: {fileID: 270796094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &270796094
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 417574175}
+    m_Modifications:
+    - target: {fileID: 597717555350507912, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 597717555350507912, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 597717555350507912, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 597717555350507912, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 597717555350507912, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7074696193070541377, guid: 4c1c6cf73f0415744b770935ffda3abd, type: 3}
+    - target: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3511861341997802344, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Name
+      value: enemy-staminabar-fill
+      objectReference: {fileID: 0}
+    - target: {fileID: 5548306070552936968, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: gameplayCamera
+      value: 
+      objectReference: {fileID: 745189559}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 90.00001
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 22.499998
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7622602723375979905, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Name
+      value: Staminabar
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5548306070552936968, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 5989415130225619289, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7622602723375979905, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 270796100}
+  m_SourcePrefab: {fileID: 100100000, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+--- !u!224 &270796095 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+  m_PrefabInstance: {fileID: 270796094}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &270796100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242796281}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862464a010bd7a84fb30f16f3544362c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaminaBarUI
+  stamina: {fileID: 1565452042}
+  fillImage: {fileID: 1591086880}
 --- !u!224 &417574175 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
@@ -661,6 +847,96 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &925084004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 925084005}
+  - component: {fileID: 925084007}
+  - component: {fileID: 925084006}
+  - component: {fileID: 925084008}
+  m_Layer: 5
+  m_Name: StaminaBar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &925084005
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925084004}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1045135934}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 61.6}
+  m_SizeDelta: {x: 270, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &925084006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925084004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: -4705666440359949753, guid: 6f8337d4edbd4874abe0eb9ae8ebd312, type: 3}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 0
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &925084007
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925084004}
+  m_CullTransparentMesh: 1
+--- !u!114 &925084008
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925084004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 862464a010bd7a84fb30f16f3544362c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaminaBarUI
+  stamina: {fileID: 1012650140}
+  fillImage: {fileID: 925084006}
 --- !u!1 &1001120567
 GameObject:
   m_ObjectHideFlags: 0
@@ -792,6 +1068,7 @@ GameObject:
   - component: {fileID: 1012650137}
   - component: {fileID: 1012650138}
   - component: {fileID: 1012650139}
+  - component: {fileID: 1012650140}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -975,6 +1252,8 @@ MonoBehaviour:
   attackRange: 2
   attackAngle: 90
   attackCooldown: 0.4
+  attackStaminaCost: 15
+  exhaustedDamageMultiplier: 0.1
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1008,7 +1287,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 100
-  healthRegenPerSecond: 5
+  healthRegenPerSecond: 2
+--- !u!114 &1012650140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cd51d24f9a48e42bcd7452db788516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Stamina
+  maxStamina: 100
+  regenerationPerSecond: 20
+  regenerationDelay: 1
 --- !u!1 &1013885998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1217,6 +1511,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 609896754}
+  - {fileID: 925084005}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1462,6 +1757,7 @@ GameObject:
   - component: {fileID: 1565452030}
   - component: {fileID: 1565452029}
   - component: {fileID: 1565452033}
+  - component: {fileID: 1565452042}
   - component: {fileID: 1565452034}
   - component: {fileID: 1565452035}
   - component: {fileID: 1565452036}
@@ -1566,7 +1862,7 @@ Transform:
   m_GameObject: {fileID: 1565452028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.61, y: 1.55, z: -1.06616}
+  m_LocalPosition: {x: -12.159, y: 1.55, z: -1.06616}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1681,6 +1977,9 @@ MonoBehaviour:
   attackRange: 1.5
   attackAngle: 100
   attackCooldown: 1
+  attackStaminaCost: 15
+  exhaustedDamageMultiplier: 0.5
+  exhaustedCooldownMultiplier: 1.4
   damageType: 0
 --- !u!114 &1565452039
 MonoBehaviour:
@@ -1820,6 +2119,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7e3f0c671c1ee24fbf59fd2823f6f6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyDeathHandler
+--- !u!114 &1565452042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0cd51d24f9a48e42bcd7452db788516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Stamina
+  maxStamina: 100
+  regenerationPerSecond: 20
+  regenerationDelay: 1
+--- !u!114 &1591086880 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+  m_PrefabInstance: {fileID: 270796094}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!1 &1684258911
 GameObject:
   m_ObjectHideFlags: 0
@@ -2233,6 +2558,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3511861341997802344, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      propertyPath: m_Name
+      value: enemy-healthbar-fill
+      objectReference: {fileID: 0}
     - target: {fileID: 5548306070552936968, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
       propertyPath: gameplayCamera
       value: 
@@ -2319,11 +2648,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7622602723375979905, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
       propertyPath: m_Name
-      value: Healthbar
+      value: Enemybars
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6029625772409724602, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 270796095}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}
 --- !u!1660057539 &9223372036854775807

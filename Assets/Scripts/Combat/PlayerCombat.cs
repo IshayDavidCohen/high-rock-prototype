@@ -4,6 +4,7 @@ using UnityEngine;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PlayerInputReader))]
+[RequireComponent(typeof(Stamina))]
 public sealed class PlayerCombat : MonoBehaviour
 {
     private const int HitBufferSize = 16;
@@ -21,6 +22,12 @@ public sealed class PlayerCombat : MonoBehaviour
     [SerializeField, Min(0f)]
     private float attackCooldown = 0.4f;
 
+    [SerializeField, Min(0f)]
+    private float attackStaminaCost = 15f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float exhaustedDamageMultiplier = 0.5f;
+
     [Header("Detection")]
     [SerializeField]
     private LayerMask damageableLayers;
@@ -35,9 +42,12 @@ public sealed class PlayerCombat : MonoBehaviour
 
     private float _nextAttackTime;
 
+    private Stamina _stamina;
+
     void Awake()
     {
         _input = GetComponent<PlayerInputReader>();
+        _stamina = GetComponent<Stamina>();
     }
 
     void Update()
@@ -48,10 +58,14 @@ public sealed class PlayerCombat : MonoBehaviour
         if (Time.time < _nextAttackTime)
             return;
 
-        PerformAttack();
+        bool hasEnoughStamina = _stamina.TrySpend(attackStaminaCost);
+
+        float resolvedDamage = hasEnoughStamina ? attackDamage : attackDamage * exhaustedDamageMultiplier;
+
+        PerformAttack(resolvedDamage);
     }
 
-    private void PerformAttack()
+    private void PerformAttack(float resolvedDamage)
     {
         _nextAttackTime = Time.time + attackCooldown;
         _damagedThisAttack.Clear();
@@ -127,7 +141,7 @@ public sealed class PlayerCombat : MonoBehaviour
             if (!_damagedThisAttack.Add(health))
                 continue;
 
-            health.TakeDamage(attackDamage, DamageType.Physical, gameObject);
+            health.TakeDamage(resolvedDamage, DamageType.Physical, gameObject);
         }
     }
 
