@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class PlayerInputReader : MonoBehaviour
+public sealed class PlayerInputReader : MonoBehaviour
 {
     private PlayerControls _controls;
 
     public Vector2 Move => _controls.Player.Move.ReadValue<Vector2>();
     public Vector2 PointerPosition => _controls.Player.PointerPosition.ReadValue<Vector2>();
     public bool IsLookAheadHold => _controls.Player.LookAhead.IsPressed();
+
+    public bool AttackPressedThisFrame => _controls.Player.Attack.WasPressedThisFrame();
 
     private void Awake()
     {
