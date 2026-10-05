@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.XR;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(NavMeshAgent))]
@@ -8,6 +7,7 @@ using UnityEngine.XR;
 [RequireComponent(typeof(EnemyCombat))]
 [RequireComponent(typeof(Health))]
 [RequireComponent(typeof(StaggerController))]
+[RequireComponent(typeof(BlockController))]
 public sealed class EnemyBrain : MonoBehaviour
 {
     private enum EnemyState
@@ -15,6 +15,7 @@ public sealed class EnemyBrain : MonoBehaviour
         Idle,
         Chase,
         Attack,
+        Block,
         Search,
         Return
     }
@@ -45,8 +46,36 @@ public sealed class EnemyBrain : MonoBehaviour
     [SerializeField, Min(0f)]
     private float searchTurnSpeed = 90f;
 
-    [Header("Block")]
+    [Header("Blocking")]
+    [SerializeField, Range(0f, 1f)]
+    private float blockChance = 0.25f;
+
+    [SerializeField, Min(0.1f)]
+    private float blockDecisionInterval = 1.25f;
+
+    [SerializeField, Min(0.1f)]
+    private float minBlockDuration = 1.5f;
+
+    [SerializeField, Min(0.1f)]
+    private float maxBlockDuration = 3f;
+
+    [SerializeField, Range(0f, 1f)]
+    private float retreatWhileBlockingChance = 0.8f;
+
+    [SerializeField, Min(0f)]
+    private float blockRetreatDistance = 3f;
+
+    [SerializeField, Range(0.1f, 1f)]
+    private float blockMoveSpeedMultiplier = 0.5f;
     private StaggerController _stagger;
+    private BlockController _block;
+    private float _nextBlockDecisionTime;
+    private float _blockTimer;
+    private bool _blockRetreating;
+
+    // Used not just in blocking, but for speed of enemy.
+    private float _defaultAgentSpeed;
+
 
     [Header("Debug")]
     [SerializeField]
@@ -75,6 +104,9 @@ public sealed class EnemyBrain : MonoBehaviour
         _combat = GetComponent<EnemyCombat>();
         _health = GetComponent<Health>();
         _stagger = GetComponent<StaggerController>();
+        _block = GetComponent<BlockController>();
+
+        _defaultAgentSpeed = _agent.speed;
 
         _homePosition = transform.position;
     }
@@ -138,7 +170,7 @@ public sealed class EnemyBrain : MonoBehaviour
             return;
         }
 
-        bool isEngaged = _state == EnemyState.Chase || _state == EnemyState.Attack || _state == EnemyState.Search;
+        bool isEngaged = _state == EnemyState.Chase || _state == EnemyState.Attack || _state == EnemyState.Search || _state == EnemyState.Block;
         _perception.Refresh(isEngaged);
 
         switch (_state)
@@ -153,6 +185,10 @@ public sealed class EnemyBrain : MonoBehaviour
 
             case EnemyState.Attack:
                 UpdateAttack();
+                break;
+
+            case EnemyState.Block:
+                UpdateBlock();
                 break;
 
             case EnemyState.Search:
@@ -275,9 +311,48 @@ public sealed class EnemyBrain : MonoBehaviour
             return;
         }
 
+        if (Time.time >= _nextBlockDecisionTime)
+        {
+            _nextBlockDecisionTime = Time.time + blockDecisionInterval;
+
+            if (Random.value < blockChance)
+            {
+                ChangeState(EnemyState.Block);
+                return;
+            }
+        }
+
         FaceTarget();
 
         _combat.TryAttack();
+    }
+
+    private void UpdateBlock()
+    {
+        if (!_perception.CanSeeTarget)
+        {
+            ChangeState(EnemyState.Chase);
+            return;
+        }
+
+        if (!_block.IsBlocking)
+        {
+            ChangeState(EnemyState.Chase);
+            return;
+        }
+
+        FaceTarget();
+
+        _blockTimer -= Time.deltaTime;
+
+        if (_blockTimer <= 0f)
+        {
+            ChangeState(
+                _combat.IsTargetInRange(target.position)
+                    ? EnemyState.Attack
+                    : EnemyState.Chase
+            );
+        }
     }
 
     private void UpdateSearch()
@@ -348,6 +423,12 @@ public sealed class EnemyBrain : MonoBehaviour
             return;
         }
 
+        if (_state == EnemyState.Block)
+        {
+            _block.SetBlocking(false);
+            _agent.speed = _defaultAgentSpeed;
+        }
+
         if (logStateChanges)
         {
             Debug.Log(
@@ -379,6 +460,35 @@ public sealed class EnemyBrain : MonoBehaviour
             case EnemyState.Attack:
                 StopAgent();
                 _agent.updateRotation = false;
+                break;
+
+            case EnemyState.Block:
+                _blockTimer = Random.Range(minBlockDuration, maxBlockDuration);
+                _blockRetreating = Random.value < retreatWhileBlockingChance;
+                _block.SetBlocking(true);
+
+                _agent.updateRotation = false;
+
+                if (_blockRetreating)
+                {
+                    _agent.isStopped = false;
+                    _agent.speed = _defaultAgentSpeed * blockMoveSpeedMultiplier;
+
+                    Vector3 awayFromPlayer = transform.position - target.position;
+
+                    awayFromPlayer.y = 0f;
+                    awayFromPlayer.Normalize();
+
+                    Vector3 retreatPosition = transform.position + awayFromPlayer * blockRetreatDistance;
+
+                    _agent.SetDestination(retreatPosition);
+                }
+                else
+                {
+                    StopAgent();
+                    _agent.updateRotation = false;
+                }
+
                 break;
 
             case EnemyState.Search:
@@ -534,7 +644,9 @@ public sealed class EnemyBrain : MonoBehaviour
             return;
 
         _perception.RegisterTargetStimulus(source.transform.position);
-        ChangeState(EnemyState.Chase);
+
+        if (_state != EnemyState.Block)
+            ChangeState(EnemyState.Chase);
     }
 
     private void OnDrawGizmosSelected()

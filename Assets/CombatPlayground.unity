@@ -2029,6 +2029,13 @@ MonoBehaviour:
   repathInterval: 0.15
   attackTurnSpeed: 540
   searchTurnSpeed: 90
+  blockChance: 0.25
+  blockDecisionInterval: 1.25
+  minBlockDuration: 1.5
+  maxBlockDuration: 3
+  retreatWhileBlockingChance: 0.8
+  blockRetreatDistance: 3
+  blockMoveSpeedMultiplier: 0.5
   logStateChanges: 1
 --- !u!114 &1565452038
 MonoBehaviour:
