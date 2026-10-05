@@ -12,6 +12,8 @@ public sealed class PlayerInputReader : MonoBehaviour
 
     public bool IsSprintHeld => _controls.Player.Sprint.IsPressed();
 
+    public bool DodgePressedThisFrame => _controls.Player.Dodge.WasPressedThisFrame();
+
     private void Awake()
     {
         _controls = new PlayerControls();

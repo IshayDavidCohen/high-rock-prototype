@@ -2,6 +2,8 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(PlayerInputReader))]
+[RequireComponent(typeof(Stamina))]
+[RequireComponent(typeof(Health))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -17,6 +19,31 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField, Range(0f, 1f)]
     private float sprintRecoveryFraction = 0.2f;
+
+    [Header("Dodge")]
+    [SerializeField, Min(0f)]
+    private float dodgeDistance = 3f;
+
+    [SerializeField, Min(0.01f)]
+    private float dodgeDuration = 0.2f;
+
+    [SerializeField, Min(0f)]
+    private float dodgeStaminaCost = 20f;
+
+    [SerializeField, Min(0f)]
+    private float dodgeCooldown = 0.45f;
+
+    [SerializeField, Min(0f)]
+    private float dodgeInvulnerabilityDuration = 0.2f;
+
+    private Health _health;
+    private bool _isDodging;
+    private Vector3 _dodgeDirection;
+    private float _dodgeTimeRemaining;
+    private float _nextDodgeTime;
+
+    public bool IsDodging => _isDodging;
+
 
     [SerializeField]
     private float groundedVerticalVelocity = -2f;
@@ -35,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         _input = GetComponent<PlayerInputReader>();
         _stamina = GetComponent<Stamina>();
+        _health = GetComponent<Health>();
     }
 
     // Update is called once per frame
@@ -46,11 +74,23 @@ public class PlayerMovement : MonoBehaviour
 
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
 
+        UpdateVerticalVelocity();
+
+        if (_isDodging)
+        {
+            UpdateDodge();
+            return;
+        }
+
+        if (_input.DodgePressedThisFrame && TryStartDodge(moveDirection))
+        {
+            UpdateDodge();
+            return;
+        }
+
         UpdateSprintLock();
 
         float currentMoveSpeed = ResolveMoveSpeed(moveDirection);
-
-        UpdateVerticalVelocity();
 
         Vector3 velocity = moveDirection * currentMoveSpeed + Vector3.up * _verticalVelocity;
 
@@ -99,5 +139,56 @@ public class PlayerMovement : MonoBehaviour
         }
 
         _verticalVelocity += Physics.gravity.y * Time.deltaTime;
+    }
+
+    private bool TryStartDodge(Vector3 moveDirection)
+    {
+        if (Time.time < _nextDodgeTime)
+            return false;
+
+        if (!_stamina.TrySpend(dodgeStaminaCost))
+            return false;
+
+
+        Debug.Log("Dodge accepted");
+
+        if (moveDirection.sqrMagnitude > 0.0001f)
+        {
+            _dodgeDirection = moveDirection.normalized;
+        }
+        else
+        {
+            _dodgeDirection = transform.forward;
+
+            _dodgeDirection.y = 0f;
+            _dodgeDirection.Normalize();
+        }
+
+        _isDodging = true;
+        IsSprinting = false;
+
+        _dodgeTimeRemaining = dodgeDuration;
+
+        _nextDodgeTime = Time.time + dodgeCooldown;
+
+        _health.GrantInvulnerability(dodgeInvulnerabilityDuration);
+
+        return true;
+    }
+
+    private void UpdateDodge()
+    {
+        float dodgeSpeed = dodgeDistance / dodgeDuration;
+
+        float dodgeStepTime = Mathf.Min(Time.deltaTime, _dodgeTimeRemaining);
+
+        Vector3 displacement = _dodgeDirection * dodgeSpeed * dodgeStepTime + Vector3.up * _verticalVelocity * Time.deltaTime;
+
+        _controller.Move(displacement);
+
+        _dodgeTimeRemaining -= Time.deltaTime;
+
+        if (_dodgeTimeRemaining <= 0f)
+            _isDodging = false;
     }
 }

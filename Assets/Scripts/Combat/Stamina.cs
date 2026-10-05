@@ -43,17 +43,8 @@ public sealed class Stamina : MonoBehaviour
             return true;
 
         if (CurrentStamina < amount)
-        {
-            if (CurrentStamina > 0f)
-            {
-                CurrentStamina = 0f;
-                _lastSpendTime = Time.time;
-
-                StaminaChanged?.Invoke(CurrentStamina, maxStamina);
-            }
-
             return false;
-        }
+
         CurrentStamina -= amount;
         _lastSpendTime = Time.time;
 

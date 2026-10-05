@@ -16,6 +16,10 @@ public sealed class Health : MonoBehaviour
 
     public float MaxHealth => maxHealth;
 
+    private float _invulnerableUntil;
+
+    public bool IsInvulnerable => Time.time < _invulnerableUntil;
+
     public bool IsDead => CurrentHealth <= 0f;
 
     public bool IsFullHealth => CurrentHealth >= maxHealth;
@@ -45,7 +49,7 @@ public sealed class Health : MonoBehaviour
         GameObject source = null
         )
     {
-        if (amount <= 0f || IsDead)
+        if (amount <= 0f || IsDead || IsInvulnerable)
             return;
 
         float resolvedDamage = _defense != null ? _defense.ResolveDamage(amount, damageType) : amount;
@@ -88,5 +92,13 @@ public sealed class Health : MonoBehaviour
             return;
 
         Heal(healthRegenPerSecond * Time.deltaTime);
+    }
+
+    public void GrantInvulnerability(float duration)
+    {
+        if (duration <= 0f)
+            return;
+
+        _invulnerableUntil = Mathf.Max(_invulnerableUntil, Time.time + duration);
     }
 }

@@ -1088,7 +1088,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ec0e87551551a439553a1c77f00f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  moveSpeed: 9
+  moveSpeed: 6
+  sprintSpeedMultiplier: 1.6
+  sprintStaminaCostPerSecond: 8
+  sprintRecoveryFraction: 0.2
+  dodgeDistance: 3
+  dodgeDuration: 0.2
+  dodgeStaminaCost: 20
+  dodgeCooldown: 0.45
+  dodgeInvulnerabilityDuration: 0.2
   groundedVerticalVelocity: -2
 --- !u!143 &1012650130
 CharacterController:
