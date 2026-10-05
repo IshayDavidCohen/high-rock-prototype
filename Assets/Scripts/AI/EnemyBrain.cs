@@ -67,11 +67,24 @@ public sealed class EnemyBrain : MonoBehaviour
 
     [SerializeField, Range(0.1f, 1f)]
     private float blockMoveSpeedMultiplier = 0.5f;
-    private StaggerController _stagger;
     private BlockController _block;
     private float _nextBlockDecisionTime;
     private float _blockTimer;
     private bool _blockRetreating;
+
+    [Header("Stagger")]
+    private StaggerController _stagger;
+
+    [SerializeField, Min(0f)]
+    private float staggerRecoilDistance = 2f;
+
+    [SerializeField, Min(0.01f)]
+    private float staggerRecoilDuration = 0.18f;
+
+    private Vector3 _staggerRecoilDirection;
+    private float _staggerRecoilTimeRemaining;
+
+
 
     // Used not just in blocking, but for speed of enemy.
     private float _defaultAgentSpeed;
@@ -114,11 +127,13 @@ public sealed class EnemyBrain : MonoBehaviour
     private void OnEnable()
     {
         _health.Damaged += HandleDamaged;
+        _stagger.StaggerStarted += HandleStaggerStarted;
     }
 
     private void OnDisable()
     {
         _health.Damaged -= HandleDamaged;
+        _stagger.StaggerStarted -= HandleStaggerStarted;
     }
 
     private void Start()
@@ -150,6 +165,7 @@ public sealed class EnemyBrain : MonoBehaviour
         if (_stagger.IsStaggered)
         {
             StopAgent();
+            UpdateStaggerRecoil();
             return;
         }
 
@@ -647,6 +663,38 @@ public sealed class EnemyBrain : MonoBehaviour
 
         if (_state != EnemyState.Block)
             ChangeState(EnemyState.Chase);
+    }
+
+    private void HandleStaggerStarted(Vector3 sourcePosition, float duration)
+    {
+        Vector3 direction = transform.position - sourcePosition;
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.0001f)
+            direction = -transform.forward;
+
+        _staggerRecoilDirection = direction.normalized;
+
+        _staggerRecoilTimeRemaining = staggerRecoilDuration;
+    }
+
+    private void UpdateStaggerRecoil()
+    {
+        if (_staggerRecoilTimeRemaining <= 0f)
+            return;
+
+        if (!_agent.isOnNavMesh)
+            return;
+
+        float stepTime = Mathf.Min(Time.deltaTime, _staggerRecoilTimeRemaining);
+
+        float recoilSpeed = staggerRecoilDistance / staggerRecoilDuration;
+
+        Vector3 displacement = _staggerRecoilDirection * recoilSpeed * stepTime;
+        _agent.Move(displacement);
+
+        _staggerRecoilTimeRemaining -= stepTime;
     }
 
     private void OnDrawGizmosSelected()

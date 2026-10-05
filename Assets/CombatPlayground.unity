@@ -1101,6 +1101,8 @@ MonoBehaviour:
   dodgeStaminaCost: 20
   dodgeCooldown: 0.45
   dodgeInvulnerabilityDuration: 0.2
+  staggerRecoilDistance: 0.75
+  staggerRecoilDuration: 0.18
   groundedVerticalVelocity: -2
 --- !u!143 &1012650130
 CharacterController:
@@ -2036,6 +2038,8 @@ MonoBehaviour:
   retreatWhileBlockingChance: 0.8
   blockRetreatDistance: 3
   blockMoveSpeedMultiplier: 0.5
+  staggerRecoilDistance: 2
+  staggerRecoilDuration: 0.18
   logStateChanges: 1
 --- !u!114 &1565452038
 MonoBehaviour:

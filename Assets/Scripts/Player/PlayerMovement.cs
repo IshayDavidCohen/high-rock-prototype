@@ -50,6 +50,16 @@ public class PlayerMovement : MonoBehaviour
 
     public bool IsDodging => _isDodging;
 
+    [Header("Stagger Recoil")]
+    [SerializeField, Min(0f)]
+    private float staggerRecoilDistance = 1.5f; // For player we will set it uniquely to 1.5f
+    
+    [SerializeField, Min(0.01f)]
+    private float staggerRecoilDuration = 0.18f;
+
+    private Vector3 _staggerRecoilDirection;
+    private float _staggerRecoilTimeRemaining;
+
 
     [SerializeField]
     private float groundedVerticalVelocity = -2f;
@@ -73,6 +83,16 @@ public class PlayerMovement : MonoBehaviour
         _stagger = GetComponent<StaggerController>();
     }
 
+    private void OnEnable()
+    {
+        _stagger.StaggerStarted += HandleStaggerStarted;
+    }
+
+    private void OnDisable()
+    {
+        _stagger.StaggerStarted -= HandleStaggerStarted;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -89,9 +109,7 @@ public class PlayerMovement : MonoBehaviour
             _isDodging = false;
             IsSprinting = false;
 
-            Vector3 staggerVelocity = Vector3.up * _verticalVelocity;
-            _controller.Move(staggerVelocity * Time.deltaTime);
-
+            UpdateStaggerRecoil();
             return;
         }
 
@@ -199,6 +217,50 @@ public class PlayerMovement : MonoBehaviour
         _health.GrantInvulnerability(dodgeInvulnerabilityDuration);
 
         return true;
+    }
+
+    private void HandleStaggerStarted(Vector3 sourcePosition, float duration)
+    {
+        Vector3 direction = transform.position - sourcePosition;
+
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude < 0.0001f)
+            direction = -transform.forward;
+
+        _staggerRecoilDirection = direction.normalized;
+        _staggerRecoilTimeRemaining = staggerRecoilDuration;
+    }
+
+    private void UpdateStaggerRecoil()
+    {
+        Vector3 displacement =
+            Vector3.up *
+            _verticalVelocity *
+            Time.deltaTime;
+
+        if (_staggerRecoilTimeRemaining > 0f)
+        {
+            float stepTime =
+                Mathf.Min(
+                    Time.deltaTime,
+                    _staggerRecoilTimeRemaining
+                );
+
+            float recoilSpeed =
+                staggerRecoilDistance /
+                staggerRecoilDuration;
+
+            displacement +=
+                _staggerRecoilDirection *
+                recoilSpeed *
+                stepTime;
+
+            _staggerRecoilTimeRemaining -=
+                stepTime;
+        }
+
+        _controller.Move(displacement);
     }
 
     private void UpdateDodge()
