@@ -4,6 +4,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerInputReader))]
 [RequireComponent(typeof(Stamina))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(BlockController))]
+[RequireComponent(typeof(StaggerController))]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Movement")]
@@ -36,6 +38,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Min(0f)]
     private float dodgeInvulnerabilityDuration = 0.2f;
 
+    [Header("Block")]
+    private BlockController _block;
+    private StaggerController _stagger;
+
     private Health _health;
     private bool _isDodging;
     private Vector3 _dodgeDirection;
@@ -63,6 +69,8 @@ public class PlayerMovement : MonoBehaviour
         _input = GetComponent<PlayerInputReader>();
         _stamina = GetComponent<Stamina>();
         _health = GetComponent<Health>();
+        _block = GetComponent<BlockController>();
+        _stagger = GetComponent<StaggerController>();
     }
 
     // Update is called once per frame
@@ -75,6 +83,18 @@ public class PlayerMovement : MonoBehaviour
         moveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
 
         UpdateVerticalVelocity();
+
+        if (_stagger.IsStaggered)
+        {
+            _isDodging = false;
+            IsSprinting = false;
+
+            Vector3 staggerVelocity = Vector3.up * _verticalVelocity;
+            _controller.Move(staggerVelocity * Time.deltaTime);
+
+            return;
+        }
+
 
         if (_isDodging)
         {
@@ -100,6 +120,11 @@ public class PlayerMovement : MonoBehaviour
     private float ResolveMoveSpeed(Vector3 moveDirection)
     {
         IsSprinting = false;
+
+        if (_block.IsBlocking)
+        {
+            return moveSpeed * _block.MovementSpeedMultiplier;
+        }
 
         bool isMoving = moveDirection.sqrMagnitude > 0.0001f;
         if (!isMoving || !_input.IsSprintHeld || _sprintLocked)

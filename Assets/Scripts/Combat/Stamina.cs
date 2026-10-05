@@ -27,6 +27,13 @@ public sealed class Stamina : MonoBehaviour
 
     private float _lastSpendTime;
 
+    private float _regenerationMultiplier = 1f;
+
+    public void SetRegenerationMultiplier(float multiplier)
+    {
+        _regenerationMultiplier = Mathf.Max(0f, multiplier);
+    }
+
     private void Awake()
     {
         CurrentStamina = maxStamina;
@@ -71,6 +78,17 @@ public sealed class Stamina : MonoBehaviour
         if (Time.time < _lastSpendTime + regenerationDelay)
             return;
 
-        Restore(regenerationPerSecond * Time.deltaTime);
+        Restore(regenerationPerSecond * _regenerationMultiplier * Time.deltaTime);
+    }
+
+    public void Exhaust()
+    {
+        if (IsEmpty)
+            return;
+
+        CurrentStamina = 0f;
+        _lastSpendTime = Time.time;
+
+        StaminaChanged?.Invoke(CurrentStamina, maxStamina);
     }
 }

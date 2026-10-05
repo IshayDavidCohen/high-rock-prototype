@@ -5,6 +5,8 @@ using UnityEngine;
 [DisallowMultipleComponent]
 [RequireComponent(typeof(PlayerInputReader))]
 [RequireComponent(typeof(Stamina))]
+[RequireComponent(typeof(BlockController))]
+[RequireComponent(typeof(StaggerController))]
 public sealed class PlayerCombat : MonoBehaviour
 {
     private const int HitBufferSize = 16;
@@ -28,10 +30,17 @@ public sealed class PlayerCombat : MonoBehaviour
     [SerializeField, Range(0f, 1f)]
     private float exhaustedDamageMultiplier = 0.5f;
 
+    [Header("Block")]
+    private StaggerController _stagger;
+    private BlockController _block;
+
+    [SerializeField, Min(0f)]
+    private float attackGuardDamage = 30f;
+
+
     [Header("Detection")]
     [SerializeField]
     private LayerMask damageableLayers;
-
     [SerializeField]
     private LayerMask attackOcclusionLayers;
 
@@ -48,10 +57,15 @@ public sealed class PlayerCombat : MonoBehaviour
     {
         _input = GetComponent<PlayerInputReader>();
         _stamina = GetComponent<Stamina>();
+        _block = GetComponent<BlockController>();
+        _stagger = GetComponent<StaggerController>();
     }
 
     void Update()
     {
+        if (_block.IsBlocking || _stagger.IsStaggered)
+            return;
+
         if (!_input.AttackPressedThisFrame)
             return;
 
@@ -141,7 +155,23 @@ public sealed class PlayerCombat : MonoBehaviour
             if (!_damagedThisAttack.Add(health))
                 continue;
 
-            health.TakeDamage(resolvedDamage, DamageType.Physical, gameObject);
+            DamageReceiver receiver = health.GetComponent<DamageReceiver>();
+
+            if (receiver == null)
+            {
+                Debug.LogError(
+                    $"{health.name} has Health but no DamageReceiver.",
+                    health
+                );
+
+                continue;
+            }
+
+            DamageInfo hitInfo = new DamageInfo(resolvedDamage, attackGuardDamage, DamageType.Physical, gameObject, transform.position, true);
+
+            receiver.ReceiveHit(hitInfo);
+
+            //health.TakeDamage(resolvedDamage, DamageType.Physical, gameObject);
         }
     }
 

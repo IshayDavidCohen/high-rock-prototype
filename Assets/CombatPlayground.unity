@@ -1069,6 +1069,10 @@ GameObject:
   - component: {fileID: 1012650138}
   - component: {fileID: 1012650139}
   - component: {fileID: 1012650140}
+  - component: {fileID: 1012650142}
+  - component: {fileID: 1012650141}
+  - component: {fileID: 1012650143}
+  - component: {fileID: 1012650144}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -1262,6 +1266,7 @@ MonoBehaviour:
   attackCooldown: 0.4
   attackStaminaCost: 15
   exhaustedDamageMultiplier: 0.1
+  attackGuardDamage: 30
   damageableLayers:
     serializedVersion: 2
     m_Bits: 64
@@ -1311,6 +1316,59 @@ MonoBehaviour:
   maxStamina: 100
   regenerationPerSecond: 20
   regenerationDelay: 1
+--- !u!114 &1012650141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bd7ab5eca62f74da44ba7e67783089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockController
+  blockAngle: 120
+  blockedDamageMultiplier: 0.3
+  blockingMovementSpeedMultipler: 0.5
+  blockingStaminaRegenMultiplier: 0.35
+  guardBreakStaggerDuration: 0.6
+--- !u!114 &1012650142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b3bf348b90f71489f9d1f08f62ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaggerController
+--- !u!114 &1012650143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7123e76d45917947af6e6aa563f6564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
+--- !u!114 &1012650144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012650128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f3e707faa5ae2c4696607d54951a158, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerBlockInput
 --- !u!1 &1013885998
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,6 +1832,9 @@ GameObject:
   - component: {fileID: 1565452040}
   - component: {fileID: 1565452039}
   - component: {fileID: 1565452041}
+  - component: {fileID: 1565452044}
+  - component: {fileID: 1565452043}
+  - component: {fileID: 1565452045}
   m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
@@ -1986,6 +2047,7 @@ MonoBehaviour:
   attackAngle: 100
   attackCooldown: 1
   attackStaminaCost: 15
+  attackGuardDamage: 15
   exhaustedDamageMultiplier: 0.5
   exhaustedCooldownMultiplier: 1.4
   damageType: 0
@@ -2142,6 +2204,47 @@ MonoBehaviour:
   maxStamina: 100
   regenerationPerSecond: 20
   regenerationDelay: 1
+--- !u!114 &1565452043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58bd7ab5eca62f74da44ba7e67783089, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BlockController
+  blockAngle: 120
+  blockedDamageMultiplier: 0.3
+  blockingMovementSpeedMultipler: 0.5
+  blockingStaminaRegenMultiplier: 0.35
+  guardBreakStaggerDuration: 0.6
+--- !u!114 &1565452044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b3bf348b90f71489f9d1f08f62ddae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StaggerController
+--- !u!114 &1565452045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1565452028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7123e76d45917947af6e6aa563f6564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
 --- !u!114 &1591086880 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2900719990694320935, guid: e8bbacdc464b8b149bbd9f1d79df8fc5, type: 3}

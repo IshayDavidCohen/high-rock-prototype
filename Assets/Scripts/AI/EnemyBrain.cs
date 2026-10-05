@@ -7,6 +7,7 @@ using UnityEngine.XR;
 [RequireComponent(typeof(EnemyPerception))]
 [RequireComponent(typeof(EnemyCombat))]
 [RequireComponent(typeof(Health))]
+[RequireComponent(typeof(StaggerController))]
 public sealed class EnemyBrain : MonoBehaviour
 {
     private enum EnemyState
@@ -44,6 +45,9 @@ public sealed class EnemyBrain : MonoBehaviour
     [SerializeField, Min(0f)]
     private float searchTurnSpeed = 90f;
 
+    [Header("Block")]
+    private StaggerController _stagger;
+
     [Header("Debug")]
     [SerializeField]
     private bool logStateChanges = true;
@@ -70,6 +74,7 @@ public sealed class EnemyBrain : MonoBehaviour
         _perception = GetComponent<EnemyPerception>();
         _combat = GetComponent<EnemyCombat>();
         _health = GetComponent<Health>();
+        _stagger = GetComponent<StaggerController>();
 
         _homePosition = transform.position;
     }
@@ -110,6 +115,12 @@ public sealed class EnemyBrain : MonoBehaviour
 
     private void Update()
     {
+        if (_stagger.IsStaggered)
+        {
+            StopAgent();
+            return;
+        }
+
         if (_targetHealth == null ||
             _targetHealth.IsDead)
         {
@@ -211,6 +222,8 @@ public sealed class EnemyBrain : MonoBehaviour
 
     private void UpdateChase()
     {
+        _agent.isStopped = false;
+
         if (!IsWithinLeash(transform.position))
         {
             ChangeState(EnemyState.Return);
